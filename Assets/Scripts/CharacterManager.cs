@@ -26,7 +26,7 @@ public class CharacterManager : MonoBehaviour
 	void Update () {
 		Vector3 pos=gameObject.transform.position;
 		movec.z = 4f;
-		if(Input.GetKeyDown(KeyCode.Space) && charController.isGrounded){
+		if(Input.GetKeyDown(KeyCode.UpArrow) && charController.isGrounded){
 			Debug.Log("Jump");
 			// gameObject.transform.position = new Vector3 ( pos.x, 10f,pos.z);
             movec.y = 5f;
