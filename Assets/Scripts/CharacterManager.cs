@@ -29,7 +29,7 @@ public class CharacterManager : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.UpArrow) && charController.isGrounded){
 			Debug.Log("Jump");
 			// gameObject.transform.position = new Vector3 ( pos.x, 10f,pos.z);
-            movec.y = 5f;
+            movec.y = 9f;
         }
 		if(!line.Equals(targetLine)){
 			if(targetLine==0 &&  pos.x<-3){
@@ -58,7 +58,7 @@ public class CharacterManager : MonoBehaviour
 		}
 		checkInputs ();
 		if (!charController.isGrounded) {
-			movec.y += -4 * Time.deltaTime;
+			movec.y += -4 * (Time.deltaTime*4f);
 		}
 		charController.Move(movec*Time.deltaTime);
 	}
