@@ -78,22 +78,22 @@ public class CharacterManager : MonoBehaviour
 
 	void OnCollisionEnter(Collision obj) {
 
-		string name = obj.gameObject.name;
+		string name = obj.gameObject.tag;
 		string this_name = gameObject.name;
 		Debug.Log("Collided with " + name);
 		Debug.Log("The current object is " + this_name);
 		// if player collided with vitamin
-		if (name == "vitamin"){
+		if (name == "Vitamin"){
 			Destroy(obj.gameObject);
 			score += 100;
 		}
 
-		if (name == "mask"){
+		if (name == "Mask"){
 			Destroy(obj.gameObject);
 			score += 200;
 		}
 		
-		if (name == "vaccine"){
+		if (name == "Vaccine"){
 			Destroy(obj.gameObject);
 			score += 300;
 		}
