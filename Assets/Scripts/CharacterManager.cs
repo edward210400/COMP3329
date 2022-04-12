@@ -5,14 +5,14 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    CharacterController cc;
+    CharacterController charController;
 	Vector3 movec = Vector3.zero;
 	bool canmove = true;
 	int line = 1;
 	int targetLine = 1;
 
 	void Start () {
-		cc = gameObject.GetComponent<CharacterController>();
+		charController = gameObject.GetComponent<CharacterController>();
 	}
 
 	void Update () {
@@ -43,10 +43,10 @@ public class CharacterManager : MonoBehaviour
 			}
 		}
 		checkInputs ();
-		if (!cc.isGrounded) {
+		if (!charController.isGrounded) {
 			movec.y = -4;
 		}
-		cc.Move (movec*Time.deltaTime);
+		charController.Move (movec*Time.deltaTime);
 	}
 
 	void checkInputs(){
