@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Vitamin
+  - Mask
+  - Vaccine
+  - alpha_variant
+  - delta_variant
+  - omicron_variant
   layers:
   - Default
   - TransparentFX

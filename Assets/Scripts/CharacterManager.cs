@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class CharacterManager : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class CharacterManager : MonoBehaviour
 	bool canmove = true;
 	int line = 1;
 	int targetLine = 1;
-	public static int life = 3;
+	public static int life = 1;
 	public static int score = 0;
 
 	Vector3 jump = new Vector3(0.0f, 2.0f, 0.0f);
@@ -19,8 +19,11 @@ public class CharacterManager : MonoBehaviour
 	public float jumpForce = 2.0f;
 
 	void Start () {
+		life = 1;
+		score = 0;
 		charController = gameObject.GetComponent<CharacterController>();
 		rb = gameObject.GetComponent<Rigidbody>();
+		Time.timeScale = 1;
 	}
 
 	void Update () {
@@ -122,6 +125,7 @@ public class CharacterManager : MonoBehaviour
 	if (life <= 0 ){
 		GUI.Label(new Rect(Screen.width/2-100,Screen.height/2,500,100),"Game Over");
 		Time.timeScale = 0;
+		SceneManager.LoadScene("New Scene");
 	}
 
 }
