@@ -14,16 +14,26 @@ public class CharacterManager : MonoBehaviour
 	public static int life = 3;
 	public static int score = 0;
 
+	Vector3 jump = new Vector3(0.0f, 2.0f, 0.0f);
+	private Rigidbody rb = null;
+	public float jumpForce = 2.0f;
 
 	void Start () {
 		charController = gameObject.GetComponent<CharacterController>();
+		rb = gameObject.GetComponent<Rigidbody>();
 	}
 
 	void Update () {
 		Vector3 pos=gameObject.transform.position;
+		movec.z = 4f;
+		if(Input.GetKeyDown(KeyCode.Space) && charController.isGrounded){
+			Debug.Log("Jump");
+			// gameObject.transform.position = new Vector3 ( pos.x, 10f,pos.z);
+            movec.y = 5f;
+        }
 		if(!line.Equals(targetLine)){
-			if(targetLine==0 &&  pos.x<-2){
-				gameObject.transform.position = new Vector3 (-2,pos.y,pos.z);
+			if(targetLine==0 &&  pos.x<-3){
+				gameObject.transform.position = new Vector3 (-3f,pos.y,pos.z);
 				line = targetLine;
 				movec.x = 0;
 				canmove = true;
@@ -39,8 +49,8 @@ public class CharacterManager : MonoBehaviour
 					movec.x = 0;
 					canmove = true;
 				}
-			}else if(targetLine==2 &&  pos.x>2){
-				gameObject.transform.position = new Vector3 (2f,pos.y,pos.z);
+			}else if(targetLine==2 &&  pos.x>3){
+				gameObject.transform.position = new Vector3 (3f,pos.y,pos.z);
 				line = targetLine;
 				movec.x = 0;
 				canmove = true;
@@ -48,21 +58,21 @@ public class CharacterManager : MonoBehaviour
 		}
 		checkInputs ();
 		if (!charController.isGrounded) {
-			movec.y = -4;
+			movec.y += -4 * Time.deltaTime;
 		}
-		charController.Move (movec*Time.deltaTime);
+		charController.Move(movec*Time.deltaTime);
 	}
 
 	void checkInputs(){
 		if(Input.GetKeyDown(KeyCode.LeftArrow) && canmove && line>0){
 			targetLine--;
 			canmove = false;
-			movec.x = -4f;
+			movec.x = -6f;
 		}
 		if(Input.GetKeyDown(KeyCode.RightArrow) && canmove && line<2){
 			targetLine++;
 			canmove = false;
-			movec.x = 4f;
+			movec.x = 6f;
 		}
 	}
 
