@@ -18,12 +18,16 @@ public class CharacterManager : MonoBehaviour
 	private Rigidbody rb = null;
 	public float jumpForce = 2.0f;
 
+	Animator animator;
+
 	void Start () {
 		life = 1;
 		score = 0;
 		charController = gameObject.GetComponent<CharacterController>();
 		rb = gameObject.GetComponent<Rigidbody>();
 		Time.timeScale = 1;
+		animator = GetComponent<Animator>();
+		
 	}
 
 	void Update () {
@@ -32,8 +36,12 @@ public class CharacterManager : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.UpArrow) && charController.isGrounded){
 			Debug.Log("Jump");
 			// gameObject.transform.position = new Vector3 ( pos.x, 10f,pos.z);
+			animator.SetBool("isGrounded", false);
             movec.y = 9f;
         }
+		if(charController.isGrounded){
+			animator.SetBool("isGrounded", true);
+		}
 		if(!line.Equals(targetLine)){
 			if(targetLine==0 &&  pos.x<-3){
 				gameObject.transform.position = new Vector3 (-3f,pos.y,pos.z);
