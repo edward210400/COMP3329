@@ -150,32 +150,4 @@ public class CharacterManager : MonoBehaviour
 		}
 
 	}
-	void OnGUI () {
-	// GUI.Label(new Rect(100, 0, 400, 400), "Score: " +score);
-	// GUI.Label(new Rect(100, 50, 400, 400), "Life: " + life);
-	// if (life <= 0 ){
-	// 	GUI.Label(new Rect(Screen.width/2-100,Screen.height/2,500,100),"Game Over");
-	// 	Time.timeScale = 0;
-	// 	SceneManager.LoadScene("New Scene");
-	// }
-	// Rect (x_pos, y_pos, width, height)
-	// if (Finished){
-	// 	// Make a background box
-    //     GUI.Box(new Rect(Screen.width/2,Screen.height/2,100,90), "Congratulations! Level Completed");
-    
-    //     // Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
-    //     if(GUI.Button(new Rect(20,40,80,20), "Back to Main Menu"))
-    //     {
-	// 		Debug.Log("Back to main menu pressed");
-	// 		SceneManager.LoadScene("New Scene");
-    //     }
-    
-    //     // Make the second button.
-    //     if(GUI.Button(new Rect(20,70,80,20), "Next Level")) 
-    //     {
-    //         Debug.Log("Button 2 Pressed");
-    //     }
-	// }
-
-}
 }
