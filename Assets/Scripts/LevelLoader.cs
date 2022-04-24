@@ -10,4 +10,8 @@ public class LevelLoader : MonoBehaviour
     { 
         SceneManager.LoadScene("Level1");
     }
+
+    public void LoadMainMenu(){
+        SceneManager.LoadScene("New Scene");
+    }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CharacterManager : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class CharacterManager : MonoBehaviour
 	bool canmove = true;
 	int line = 1;
 	int targetLine = 1;
-	public static int life = 1;
+	public int life = 1;
 	public static int score = 0;
+	
+	public Text ScoreUI;
+	public Text LifeUI;
+
+	public bool Finished = false;
 
 	Vector3 jump = new Vector3(0.0f, 2.0f, 0.0f);
 	private Rigidbody rb = null;
@@ -27,7 +33,7 @@ public class CharacterManager : MonoBehaviour
 	Animator anim;
 
 	void Start () {
-		life = 1;
+		life = 3;
 		score = 0;
 		charController = gameObject.GetComponent<CharacterController>();
 		rb = gameObject.GetComponent<Rigidbody>();
@@ -106,44 +112,51 @@ public class CharacterManager : MonoBehaviour
 			Instantiate(VitaminParticle, transform.position, Quaternion.identity); 
 			StartCoroutine(ChangeCharacterColor());
 			score += 100;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
 		}
 
 		if (name == "Mask"){
 			Destroy(obj.gameObject);
 			score += 200;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
 		}
 		
 		if (name == "Vaccine"){
 			Destroy(obj.gameObject);
 			score += 300;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
 		}
 
 		if (name == "alpha_variant"){
 			Destroy(obj.gameObject);
 			life -= 1;
 			score -= 100;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
 		}
 
 		if (name == "delta_variant"){
 			Destroy(obj.gameObject);
 			life -= 1;
 			score -= 200;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
 		}
 		
 		if (name == "omicron_variant"){
 			Destroy(obj.gameObject);
+			life -= 1;
 			score -= 300;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
+		}
+		if (name == "Finish Line"){
+			Finished = true;
 		}
 
-	}
-	void OnGUI () {
-	GUI.Label(new Rect(100, 0, 400, 400), "Score: " +score);
-	GUI.Label(new Rect(100, 50, 400, 400), "Life: " + life);
-	if (life <= 0 ){
-		GUI.Label(new Rect(Screen.width/2-100,Screen.height/2,500,100),"Game Over");
-		Time.timeScale = 0;
-		SceneManager.LoadScene("New Scene");
-		}
 	}
 	IEnumerator ChangeCharacterColor()
 	{

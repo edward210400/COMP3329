@@ -10,6 +10,7 @@ TagManager:
   - alpha_variant
   - delta_variant
   - omicron_variant
+  - Finish Line
   layers:
   - Default
   - TransparentFX
