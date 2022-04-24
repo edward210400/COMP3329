@@ -11,6 +11,7 @@ TagManager:
   - delta_variant
   - omicron_variant
   - Finish Line
+  - Key
   layers:
   - Default
   - TransparentFX

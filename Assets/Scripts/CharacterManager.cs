@@ -171,6 +171,10 @@ public class CharacterManager : MonoBehaviour
 		if (name == "Finish Line"){
 			Finished = true;
 		}
+		if (name == "Key"){
+			Destroy(obj.gameObject);
+			vitaminCollide.Play(); 
+		}
 
 	}
 	IEnumerator ChangeCharacterColor()
