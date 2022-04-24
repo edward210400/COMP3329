@@ -29,6 +29,9 @@ public class CharacterManager : MonoBehaviour
 	public GameObject characterBody = null;
 	private Renderer characterRenderer = null;
 	private Color originalCharColor = new Color (0f,0f,0f,0f);
+	[Header("Audio")]
+	public AudioSource vitaminCollide = null;
+	public AudioSource virusCollide = null;
 
 	Animator anim;
 
@@ -41,6 +44,8 @@ public class CharacterManager : MonoBehaviour
 		anim = gameObject.GetComponent<Animator>();
 		characterRenderer = characterBody.GetComponent<Renderer>();
 		originalCharColor = characterRenderer.material.color;
+		vitaminCollide = vitaminCollide.GetComponent<AudioSource>();
+		virusCollide = virusCollide.GetComponent<AudioSource>();
 	}
 
 	void Update () {
@@ -109,8 +114,8 @@ public class CharacterManager : MonoBehaviour
 		// if player collided with vitamin
 		if (name == "Vitamin"){
 			Destroy(obj.gameObject);
-			Instantiate(VitaminParticle, transform.position, Quaternion.identity); 
-			StartCoroutine(ChangeCharacterColor());
+			Instantiate(VitaminParticle, transform.position, Quaternion.identity);
+			vitaminCollide.Play(); 
 			score += 100;
 			ScoreUI.text = "Score :" + score.ToString();
 			LifeUI.text = "Life :" + life.ToString();
@@ -132,6 +137,8 @@ public class CharacterManager : MonoBehaviour
 
 		if (name == "alpha_variant"){
 			Destroy(obj.gameObject);
+			virusCollide.Play();
+			StartCoroutine(ChangeCharacterColor());
 			life -= 1;
 			score -= 100;
 			ScoreUI.text = "Score :" + score.ToString();
