@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CharacterManager : MonoBehaviour
 {
@@ -11,22 +12,28 @@ public class CharacterManager : MonoBehaviour
 	bool canmove = true;
 	int line = 1;
 	int targetLine = 1;
-	public static int life = 1;
+	public int life = 1;
 	public static int score = 0;
+	
+	public Text ScoreUI;
+	public Text LifeUI;
+
+	public bool Finished = false;
 
 	Vector3 jump = new Vector3(0.0f, 2.0f, 0.0f);
 	private Rigidbody rb = null;
 	public float jumpForce = 2.0f;
 
-	Animator animator;
+    
+	// Animator animator;
 
 	void Start () {
-		life = 1;
+		life = 3;
 		score = 0;
 		charController = gameObject.GetComponent<CharacterController>();
 		rb = gameObject.GetComponent<Rigidbody>();
 		Time.timeScale = 1;
-		animator = GetComponent<Animator>();
+		// animator = GetComponent<Animator>();
 		
 	}
 
@@ -36,12 +43,12 @@ public class CharacterManager : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.UpArrow) && charController.isGrounded){
 			Debug.Log("Jump");
 			// gameObject.transform.position = new Vector3 ( pos.x, 10f,pos.z);
-			animator.SetBool("isGrounded", false);
+			// animator.SetBool("isGrounded", false);
             movec.y = 9f;
         }
-		if(charController.isGrounded){
-			animator.SetBool("isGrounded", true);
-		}
+		// if(charController.isGrounded){
+		// 	animator.SetBool("isGrounded", true);
+		// }
 		if(!line.Equals(targetLine)){
 			if(targetLine==0 &&  pos.x<-3){
 				gameObject.transform.position = new Vector3 (-3f,pos.y,pos.z);
@@ -97,44 +104,78 @@ public class CharacterManager : MonoBehaviour
 		if (name == "Vitamin"){
 			Destroy(obj.gameObject);
 			score += 100;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
 		}
 
 		if (name == "Mask"){
 			Destroy(obj.gameObject);
 			score += 200;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
 		}
 		
 		if (name == "Vaccine"){
 			Destroy(obj.gameObject);
 			score += 300;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
 		}
 
 		if (name == "alpha_variant"){
 			Destroy(obj.gameObject);
 			life -= 1;
 			score -= 100;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
 		}
 
 		if (name == "delta_variant"){
 			Destroy(obj.gameObject);
 			life -= 1;
 			score -= 200;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
 		}
 		
 		if (name == "omicron_variant"){
 			Destroy(obj.gameObject);
+			life -= 1;
 			score -= 300;
+			ScoreUI.text = "Score :" + score.ToString();
+			LifeUI.text = "Life :" + life.ToString();
+		}
+		if (name == "Finish Line"){
+			Finished = true;
 		}
 
 	}
 	void OnGUI () {
-	GUI.Label(new Rect(100, 0, 400, 400), "Score: " +score);
-	GUI.Label(new Rect(100, 50, 400, 400), "Life: " + life);
-	if (life <= 0 ){
-		GUI.Label(new Rect(Screen.width/2-100,Screen.height/2,500,100),"Game Over");
-		Time.timeScale = 0;
-		SceneManager.LoadScene("New Scene");
-	}
+	// GUI.Label(new Rect(100, 0, 400, 400), "Score: " +score);
+	// GUI.Label(new Rect(100, 50, 400, 400), "Life: " + life);
+	// if (life <= 0 ){
+	// 	GUI.Label(new Rect(Screen.width/2-100,Screen.height/2,500,100),"Game Over");
+	// 	Time.timeScale = 0;
+	// 	SceneManager.LoadScene("New Scene");
+	// }
+	// Rect (x_pos, y_pos, width, height)
+	// if (Finished){
+	// 	// Make a background box
+    //     GUI.Box(new Rect(Screen.width/2,Screen.height/2,100,90), "Congratulations! Level Completed");
+    
+    //     // Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
+    //     if(GUI.Button(new Rect(20,40,80,20), "Back to Main Menu"))
+    //     {
+	// 		Debug.Log("Back to main menu pressed");
+	// 		SceneManager.LoadScene("New Scene");
+    //     }
+    
+    //     // Make the second button.
+    //     if(GUI.Button(new Rect(20,70,80,20), "Next Level")) 
+    //     {
+    //         Debug.Log("Button 2 Pressed");
+    //     }
+	// }
 
 }
 }
