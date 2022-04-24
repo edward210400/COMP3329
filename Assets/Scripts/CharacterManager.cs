@@ -23,9 +23,14 @@ public class CharacterManager : MonoBehaviour
 	Vector3 jump = new Vector3(0.0f, 2.0f, 0.0f);
 	private Rigidbody rb = null;
 	public float jumpForce = 2.0f;
+	[Header("Vitamin Particle")]
+	public GameObject VitaminParticle = null;
+	[Header("Character Body")]
+	public GameObject characterBody = null;
+	private Renderer characterRenderer = null;
+	private Color originalCharColor = new Color (0f,0f,0f,0f);
 
-    
-	// Animator animator;
+	Animator anim;
 
 	void Start () {
 		life = 3;
@@ -33,8 +38,9 @@ public class CharacterManager : MonoBehaviour
 		charController = gameObject.GetComponent<CharacterController>();
 		rb = gameObject.GetComponent<Rigidbody>();
 		Time.timeScale = 1;
-		// animator = GetComponent<Animator>();
-		
+		anim = gameObject.GetComponent<Animator>();
+		characterRenderer = characterBody.GetComponent<Renderer>();
+		originalCharColor = characterRenderer.material.color;
 	}
 
 	void Update () {
@@ -43,12 +49,12 @@ public class CharacterManager : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.UpArrow) && charController.isGrounded){
 			Debug.Log("Jump");
 			// gameObject.transform.position = new Vector3 ( pos.x, 10f,pos.z);
-			// animator.SetBool("isGrounded", false);
+			anim.Play("Base Layer.jumping", 0, 0);
             movec.y = 9f;
         }
-		// if(charController.isGrounded){
-		// 	animator.SetBool("isGrounded", true);
-		// }
+		if(charController.isGrounded){
+			// animator.SetBool("isGrounded", true);
+		}
 		if(!line.Equals(targetLine)){
 			if(targetLine==0 &&  pos.x<-3){
 				gameObject.transform.position = new Vector3 (-3f,pos.y,pos.z);
@@ -103,6 +109,8 @@ public class CharacterManager : MonoBehaviour
 		// if player collided with vitamin
 		if (name == "Vitamin"){
 			Destroy(obj.gameObject);
+			Instantiate(VitaminParticle, transform.position, Quaternion.identity); 
+			StartCoroutine(ChangeCharacterColor());
 			score += 100;
 			ScoreUI.text = "Score :" + score.ToString();
 			LifeUI.text = "Life :" + life.ToString();
@@ -149,5 +157,27 @@ public class CharacterManager : MonoBehaviour
 			Finished = true;
 		}
 
+	}
+	IEnumerator ChangeCharacterColor()
+	{
+		characterRenderer.material.color = new Color(1f,0f,0f,0f);
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = originalCharColor;
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = new Color(1f,0f,0f,0f);
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = originalCharColor;
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = new Color(1f,0f,0f,0f);
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = originalCharColor;
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = new Color(1f,0f,0f,0f);
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = originalCharColor;
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = new Color(1f,0f,0f,0f);
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = originalCharColor;
 	}
 }
