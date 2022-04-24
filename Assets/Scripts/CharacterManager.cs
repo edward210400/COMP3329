@@ -17,6 +17,12 @@ public class CharacterManager : MonoBehaviour
 	Vector3 jump = new Vector3(0.0f, 2.0f, 0.0f);
 	private Rigidbody rb = null;
 	public float jumpForce = 2.0f;
+	[Header("Vitamin Particle")]
+	public GameObject VitaminParticle = null;
+	[Header("Character Body")]
+	public GameObject characterBody = null;
+	private Renderer characterRenderer = null;
+	private Color originalCharColor = new Color (0f,0f,0f,0f);
 
 	Animator anim;
 
@@ -27,7 +33,8 @@ public class CharacterManager : MonoBehaviour
 		rb = gameObject.GetComponent<Rigidbody>();
 		Time.timeScale = 1;
 		anim = gameObject.GetComponent<Animator>();
-		
+		characterRenderer = characterBody.GetComponent<Renderer>();
+		originalCharColor = characterRenderer.material.color;
 	}
 
 	void Update () {
@@ -96,6 +103,8 @@ public class CharacterManager : MonoBehaviour
 		// if player collided with vitamin
 		if (name == "Vitamin"){
 			Destroy(obj.gameObject);
+			Instantiate(VitaminParticle, transform.position, Quaternion.identity); 
+			StartCoroutine(ChangeCharacterColor());
 			score += 100;
 		}
 
@@ -134,7 +143,28 @@ public class CharacterManager : MonoBehaviour
 		GUI.Label(new Rect(Screen.width/2-100,Screen.height/2,500,100),"Game Over");
 		Time.timeScale = 0;
 		SceneManager.LoadScene("New Scene");
+		}
 	}
-
-}
+	IEnumerator ChangeCharacterColor()
+	{
+		characterRenderer.material.color = new Color(1f,0f,0f,0f);
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = originalCharColor;
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = new Color(1f,0f,0f,0f);
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = originalCharColor;
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = new Color(1f,0f,0f,0f);
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = originalCharColor;
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = new Color(1f,0f,0f,0f);
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = originalCharColor;
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = new Color(1f,0f,0f,0f);
+		yield return new WaitForSeconds(0.1f);
+		characterRenderer.material.color = originalCharColor;
+	}
 }
