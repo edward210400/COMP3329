@@ -32,7 +32,11 @@ public class CharacterManager : MonoBehaviour
 	[Header("Audio")]
 	public AudioSource vitaminCollide = null;
 	public AudioSource virusCollide = null;
+	[Header("Points Text")]
+	public Text PointsText = null;
 
+	[Header("Points")]
+	public GameObject points = null;
 	Animator anim;
 
 	void Start () {
@@ -119,6 +123,8 @@ public class CharacterManager : MonoBehaviour
 			score += 100;
 			ScoreUI.text = "Score :" + score.ToString();
 			LifeUI.text = "Life :" + life.ToString();
+			PointsText.text = "+100";
+			Instantiate(points, transform.position, Quaternion.identity);
 		}
 
 		if (name == "Mask"){
@@ -143,6 +149,8 @@ public class CharacterManager : MonoBehaviour
 			score -= 100;
 			ScoreUI.text = "Score :" + score.ToString();
 			LifeUI.text = "Life :" + life.ToString();
+			PointsText.text = "-100";
+			Instantiate(points, transform.position, Quaternion.identity);
 		}
 
 		if (name == "delta_variant"){
